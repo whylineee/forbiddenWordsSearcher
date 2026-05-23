@@ -1,0 +1,103 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        x:Class="ForbiddenWordsSearcher.MainWindow"
+        Title="Forbidden Words Searcher"
+        Width="950" Height="750"
+        WindowStartupLocation="CenterScreen"
+        ExtendClientAreaToDecorationsHint="True"
+        ExtendClientAreaTitleBarHeightHint="-1"
+        TransparencyLevelHint="AcrylicBlur"
+        Background="Transparent">
+    
+    <Panel>
+        <!-- Acrylic Glass Background -->
+        <ExperimentalAcrylicBorder IsHitTestVisible="False">
+            <ExperimentalAcrylicBorder.Material>
+                <ExperimentalAcrylicMaterial
+                    BackgroundSource="Digger"
+                    TintColor="#11111B"
+                    TintOpacity="1"
+                    MaterialOpacity="0.65" />
+            </ExperimentalAcrylicBorder.Material>
+        </ExperimentalAcrylicBorder>
+        
+        <Grid RowDefinitions="Auto, *">
+            <!-- Title Bar Area -->
+            <Border Grid.Row="0" Height="45" Background="Transparent" IsHitTestVisible="False">
+                <TextBlock Text="🔒 Forbidden Words Searcher" 
+                           VerticalAlignment="Center" 
+                           Margin="25,0" 
+                           FontWeight="Bold" 
+                           FontSize="14"
+                           Foreground="#A6ADC8" />
+            </Border>
+
+            <!-- Main Content -->
+            <Grid Grid.Row="1" RowDefinitions="Auto, Auto, *, Auto" Margin="25,10,25,25">
+                
+                <!-- Top Section (Inputs & Controls) side by side for wider screen -->
+                <Grid Grid.Row="0" ColumnDefinitions="*, *" Margin="0,0,0,20">
+                    <StackPanel Grid.Column="0" Spacing="15" Margin="0,0,10,0">
+                        <Border Classes="Card">
+                            <StackPanel Spacing="10">
+                                <TextBlock Text="Step 1: Forbidden Words" FontWeight="Bold" Foreground="#89B4FA" FontSize="16"/>
+                                <TextBlock Text="Manual input or text file." Foreground="#BAC2DE" FontSize="12" Margin="0,0,0,5"/>
+                                <Grid ColumnDefinitions="*, Auto">
+                                    <TextBox Grid.Column="0" Name="WordsTextBox" PlaceholderText="e.g. secret, password" Background="#33181825" />
+                                    <Button Grid.Column="1" Name="LoadWordsBtn" Content="📂 Load" Margin="10,0,0,0" Background="#45475A" Foreground="#CDD6F4" Click="LoadWordsBtn_Click"/>
+                                </Grid>
+                            </StackPanel>
+                        </Border>
+                    </StackPanel>
+                    
+                    <StackPanel Grid.Column="1" Spacing="15" Margin="10,0,0,0">
+                        <Border Classes="Card">
+                            <StackPanel Spacing="10">
+                                <TextBlock Text="Step 2: Destination" FontWeight="Bold" Foreground="#F38BA8" FontSize="16"/>
+                                <TextBlock Text="Select folder for copies and report." Foreground="#BAC2DE" FontSize="12" Margin="0,0,0,5"/>
+                                <Grid ColumnDefinitions="*, Auto">
+                                    <TextBox Grid.Column="0" Name="DestinationTextBox" IsReadOnly="True" PlaceholderText="Secure folder path..." Background="#33181825" />
+                                    <Button Grid.Column="1" Name="BrowseFolderBtn" Content="📂 Browse" Margin="10,0,0,0" Background="#45475A" Foreground="#CDD6F4" Click="BrowseFolderBtn_Click"/>
+                                </Grid>
+                            </StackPanel>
+                        </Border>
+                    </StackPanel>
+                </Grid>
+
+                <!-- Controls Card -->
+                <Border Grid.Row="1" Classes="Card" Margin="0,0,0,20" Padding="15">
+                    <StackPanel Orientation="Horizontal" Spacing="20" HorizontalAlignment="Center">
+                        <Button Name="StartBtn" Content="🚀 Start Search" Background="#A6E3A1" Foreground="#11111B" FontSize="16" Padding="40,12" Click="StartBtn_Click"/>
+                        <Button Name="PauseBtn" Content="⏸ Pause" IsEnabled="False" Background="#F9E2AF" Foreground="#11111B" Padding="25,12" Click="PauseBtn_Click"/>
+                        <Button Name="ResumeBtn" Content="▶️ Resume" IsEnabled="False" Background="#89DCEB" Foreground="#11111B" Padding="25,12" Click="ResumeBtn_Click"/>
+                        <Button Name="StopBtn" Content="⏹ Stop" IsEnabled="False" Background="#F38BA8" Foreground="#11111B" Padding="25,12" Click="StopBtn_Click"/>
+                    </StackPanel>
+                </Border>
+
+                <!-- Log Area -->
+                <Border Grid.Row="2" Classes="Card" Padding="20">
+                    <Grid RowDefinitions="Auto, *">
+                        <TextBlock Grid.Row="0" Text="Terminal / Logs" FontWeight="Bold" Foreground="#CBA6F7" FontSize="15" Margin="0,0,0,15" />
+                        <Border Grid.Row="1" Background="#66181825" CornerRadius="10" Padding="15" BorderBrush="#15FFFFFF" BorderThickness="1">
+                            <ScrollViewer Name="LogScrollViewer">
+                                <TextBlock Name="LogTextBlock" Foreground="#A6ADC8" TextWrapping="Wrap" FontFamily="Consolas, Monospace" FontSize="13" />
+                            </ScrollViewer>
+                        </Border>
+                    </Grid>
+                </Border>
+
+                <!-- Progress Area -->
+                <Border Grid.Row="3" Classes="Card" Margin="0,20,0,0" Padding="25,20">
+                    <StackPanel Spacing="12">
+                        <Grid ColumnDefinitions="*, Auto">
+                            <TextBlock Grid.Column="0" Name="ProgressText" Text="Ready to scan." Foreground="#BAC2DE" FontSize="14" />
+                            <TextBlock Grid.Column="1" Name="StatsText" Text="Files: 0 / 0" FontWeight="Bold" Foreground="#89B4FA" FontSize="14"/>
+                        </Grid>
+                        <ProgressBar Name="MainProgressBar" Minimum="0" Maximum="100" Value="0" Height="10" CornerRadius="5" Foreground="#CBA6F7" Background="#33181825" />
+                    </StackPanel>
+                </Border>
+
+            </Grid>
+        </Grid>
+    </Panel>
+</Window>
